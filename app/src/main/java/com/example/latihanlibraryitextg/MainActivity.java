@@ -76,18 +76,15 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int
                                         which) {
-                                    if (Build.VERSION.SDK_INT >=
-                                            Build.VERSION_CODES.M) {
-                                        requestPermissions(new
-                                                        String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                                 REQUEST_CODE_ASK_PERMISSIONS);
                                     }
                                 }
                             });
                     return;
                 }
-                requestPermissions(new
-                                String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_CODE_ASK_PERMISSIONS);
             }
             return;
@@ -96,12 +93,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_ASK_PERMISSIONS:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-// Permission Granted
+                // Permission Granted
 
                     try {
 
@@ -112,22 +108,17 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-// Permission Denied
+                // Permission Denied
 
-                    Toast.makeText(this, "WRITE_EXTERNAL Permission Denied",
-
-                            Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(this, "WRITE_EXTERNAL Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
-                super.onRequestPermissionsResult(requestCode, permissions,
-                        grantResults);
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
     }
-    private void showMessageOKCancel(String message,
-                                     DialogInterface.OnClickListener okListener) {
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton("OK", okListener)
@@ -136,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     private void createPdf() throws FileNotFoundException, DocumentException {
-        File docsFolder = new File(Environment.getExternalStorageDirectory() +
-                "/Documents");
+        File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
         if (!docsFolder.exists()) {
             docsFolder.mkdir();
             Log.i(TAG, "Buat Folder PDF Baru");
@@ -155,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
         PackageManager packageManager = getPackageManager();
         Intent testIntent = new Intent(Intent.ACTION_VIEW);
         testIntent.setType("application/pdf");
-        List list = packageManager.queryIntentActivities(testIntent,
-                PackageManager.MATCH_DEFAULT_ONLY);
+        List list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if (list.size() > 0) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
@@ -164,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             intent.setDataAndType(uri, "application/pdf");
             startActivity(intent);
         }else{
-            Toast.makeText(this,"Download aplikasi pdf viewer untuk melihat hasil generate",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Download aplikasi pdf viewer",Toast.LENGTH_SHORT).show();
         }
     }
 }
